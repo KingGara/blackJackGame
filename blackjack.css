@@ -1,26 +1,13 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
-    background-color: #004B23; /* Dark green background */
+    background-color: #004B23;
     position: relative;
     margin: 0;
     height: 100vh;
-    padding-top: 120px;
-    /*display:;*/
-    /*flex-direction: column;*/
-    /*justify-content: flex-start;*/
-    /*padding-top: 155px;*/
+    padding-top: 100px;
 }
 
-img {
-    position: relative;
-    z-index: 2;
-    height: 180px;
-    width: 135px;
-    padding-bottom: 20px;
-    padding-top: 20px;
-    /*margin-bottom: 10px;*/
-}
 
 body::after {
     content: '';
@@ -30,25 +17,49 @@ body::after {
     width: 100%;
     height: 100%;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.2);
     box-shadow: inset 30px 25px 75px #000000, inset -30px -25px 75px #000000
+}
 
+
+#dealer-cards img {
+    position: relative;
+    z-index: 2;
+    height: 180px;
+    width: 135px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#your-cards img {
+    position: relative;
+    z-index: 2;
+    height: 180px;
+    width: 135px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 h2 {
     position: relative;
     color: #FFFFF0;
     z-index: 2;
-    margin: 12px;
-    /*padding-top: 0px;*/
-    /*text-shadow: 1px 1px 2px rgba(255, 255, 255, 1);*/
+    margin: 10px;
 }
 
 .button-container {
-    display: flex; 
+    display: inline-flex; 
+    background-color: black;
     justify-content:center;
     gap: 5px;
-    /*margin-top: 10px;*/
+    border-radius: 25px;
+    height: 55px;
+    width: 450px;
+    padding-top: 10px
 }
 
 #hit, #stay {
@@ -85,11 +96,39 @@ h2 {
 #hit:hover {
     background-color: #C00000;
     transform: scale(1.18);
-    /*box-shadow: 0 6px 8px rgba(0, 0, 0, .4);*/
 }
 
 #stay:hover {
     background-color: #3E8E3E;
     transform: scale(1.18);
-    /*box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);*/
 }
+
+/*body {*/
+/*    font-family: Arial, Helvetica, sans-serif;*/
+/*    text-align: center;*/
+/*}*/
+/**/
+/*#dealer-cards img {*/
+/*    height: 175px;*/
+/*    width: 125px;*/
+/*    margin: 1px;*/
+/*}*/
+/**/
+/*#your-cards img {*/
+/*    height: 175px;*/
+/*    width: 125px;*/
+/*    margin: 1px;*/
+/*}*/
+/**/
+/*#hit {*/
+/*    width: 100px;*/
+/*    height: 50px;*/
+/*    font-size: 20px;*/
+/*}*/
+/**/
+/*#stay {*/
+/*    width: 100px;*/
+/*    height: 50px;*/
+/*    font-size: 20px;*/
+/*}*/
+/**/
