@@ -135,7 +135,13 @@ function stay() {
 
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("your-sum").innerText = yourSum;
-    document.getElementById("results").innerText = message;
+
+    const resultsElement = document.getElementById("results");
+    resultsElement.innerText = message;
+    
+    if(resultsElement.innerText.trim() !== "") {
+        resultsElement.classList.add('has-text');
+    }
 }
 
 

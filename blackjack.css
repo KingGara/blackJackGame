@@ -45,10 +45,18 @@ body::after {
 }
 
 h2 {
+    display: inline-block;
     position: relative;
+    padding: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: black;
     color: #FFFFF0;
     z-index: 2;
     margin: 10px;
+    border: groove;
+    border-color: black;
+    border-radius: 10px;
 }
 
 .button-container {
@@ -103,32 +111,22 @@ h2 {
     transform: scale(1.18);
 }
 
-/*body {*/
-/*    font-family: Arial, Helvetica, sans-serif;*/
-/*    text-align: center;*/
-/*}*/
-/**/
-/*#dealer-cards img {*/
-/*    height: 175px;*/
-/*    width: 125px;*/
-/*    margin: 1px;*/
-/*}*/
-/**/
-/*#your-cards img {*/
-/*    height: 175px;*/
-/*    width: 125px;*/
-/*    margin: 1px;*/
-/*}*/
-/**/
-/*#hit {*/
-/*    width: 100px;*/
-/*    height: 50px;*/
-/*    font-size: 20px;*/
-/*}*/
-/**/
-/*#stay {*/
-/*    width: 100px;*/
-/*    height: 50px;*/
-/*    font-size: 20px;*/
-/*}*/
-/**/
+/*#results {*/
+/*} */
+
+#results.has-text {
+    display: inline-block;
+    margin-top: 70px;
+    padding: 6px;
+    width: 250px;
+
+    font-family: "Roboto", sans-serif;
+    font-size: 40px;
+    color: white;
+
+    background-color: black;
+    border-color: black;
+    border-style: solid;
+    border-width: 5px;
+    border-radius: 20px;
+}
