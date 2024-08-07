@@ -1,8 +1,11 @@
 let dealerSum = 0;
+let dealerAceCount = 0;
+let dealersCards = document.getElementById("dealer-cards");
+
 let yourSum = 0;
 
-let dealerAceCount = 0;
 let yourAceCount = 0;
+
 
 let hidden;
 let deck;
@@ -14,10 +17,12 @@ let closePopUpDiv = document.getElementById("losePopUp")
 
 
 
+
 window.onload = function() {
     buildDeck();
     shuffleDeck();
     startGame();
+    //openPopup(); // Cache this so it only shows up the first time
 }
 
 
@@ -51,7 +56,7 @@ function buildDeck() {
             deck.push(values[j] + "-" + types[i]); 
         }
     }
-                                            // console.log(deck);
+                                             console.log(`Deck: ${deck}`);
 }
 
 
@@ -64,40 +69,51 @@ function shuffleDeck() {
         deck[i] = deck[j]; // replace card at i with card at j 
         deck[j] = temp; // replace card at j with stored card i
     }
-                                            //console.log(deck);
+                                            console.log(`Deck: ${deck} `);
 }
 
 
 
 function startGame() {
-    hidden = deck.pop() // Set dealers hidden card to pop'd element
-    dealerSum += getValue(hidden);
-    dealerAceCount += checkAce(hidden);
-                                            // console.log(hidden);
-                                            // console.log(dealerSum);
     for(let i = 0; i < 2; i++) {
         let cardImg = document.createElement("img");
         let card = deck.pop();
         cardImg.src = "./cards/" + card + ".png";
+
         yourSum += getValue(card);
         yourAceCount += checkAce(card);
+
         document.getElementById("your-cards").append(cardImg);
     }
-
-                                            //console.log(yourSum);
-    document.getElementById("stay").addEventListener("click", stay);
-    document.getElementById("hit").addEventListener("click", hit);
+                                            console.log(`PlayerSum: ${yourSum}`);
 
     for(let i = 0; i < 1; i++) {
+        hidden = deck.pop() // Set dealers hidden card to pop'd element
+
         let cardImg = document.createElement("img");
         let card = deck.pop();
+
         cardImg.src = "./cards/" + card + ".png";
-        dealerSum += getValue(card);
-        dealerAceCount += checkAce(card);
+        dealerSum += getValue(card) + getValue(hidden);
+        dealerAceCount += checkAce(card) + checkAce(hidden);
+
         document.getElementById("dealer-cards").append(cardImg);
     }
-                                            //console.log(dealerSum);
+                                            console.log(`DealerHidden: ${hidden}`);
+                                            console.log(`DealerSum: ${dealerSum}`);
+    if(dealerSum == 21) {
+    document.getElementById("dealer-sum").innerText = dealerSum;
+
+        document.getElementById("results").innerText = "Dealer Wins by BlackJack!"
+        document.getElementById("hit").disabled = true;
+        document.getElementById("stay").disabled = true;
+    
+        document.getElementById("results").classList.add('has-text');
+        
+    }
 }
+
+
 
 function hit() {
     let card = deck.pop();
@@ -109,9 +125,11 @@ function hit() {
     document.getElementById("your-cards").append(cardImg);
 
     if(reduceAce(yourSum, yourAceCount) > 21) {
-        canHit = false;
+        //canHit = false;
         document.getElementById("results").innerText = "BUSTED!"
+        document.getElementById("results").classList.add('has-text');
         document.getElementById("hit").disabled = true;
+        document.getElementById("stay").disabled = true;
     }
 
     //if (!canHit) {
@@ -160,9 +178,7 @@ function stay() {
     const resultsElement = document.getElementById("results");
     resultsElement.innerText = message;
     
-    if(resultsElement.innerText.trim() !== "") {
-        resultsElement.classList.add('has-text');
-    }
+    resultsElement.classList.add('has-text');
 }
 
 
@@ -193,3 +209,9 @@ function reduceAce(yourSum, yourAceCount) {
     }
     return yourSum;
 }
+
+
+document.getElementById("stay").addEventListener("click", stay);
+document.getElementById("hit").addEventListener("click", hit);
+
+

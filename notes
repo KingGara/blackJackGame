@@ -17,3 +17,10 @@ use caching to disable window from popping up of user has already visited page.
 
 
 [] Popup screen that tell the player when they have exceeded 21
+
+-------------------------------------------------------------------------------
+
+JS - Todo
+
+[] Create individually animations to show each dealer card being dealt after player
+has stayed
