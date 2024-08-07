@@ -1,5 +1,19 @@
-    CSS- TODO
+    CSS - TODO
 
 [X] Create Border around dealer and player
-[] Create Pop up menu on start
 
+
+
+*[] Create Pop up menu on start*
+[X] Closable
+- Only shows up the first time the page is loaded... Not sure If I want to
+use caching to disable window from popping up of user has already visited page.
+(have no idea how to accomplish this.)
+
+
+
+[X] Change the Dealer & Player highlight boxes
+
+
+
+[] Popup screen that tell the player when they have exceeded 21

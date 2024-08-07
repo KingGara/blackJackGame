@@ -1,12 +1,133 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
+#rulesButton {
+    position: absolute;
+    z-index: 2;
+    top: 90px;
+    left: 100px;
+    width: 85px;
+    height: 45px;
+
+    font-size: 20px;
+    color: white;
+    background-color: #343434;
+    
+    border:none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.9);
+}
+
+
+
+#rulesButton:hover {
+    background-color: white;
+    color: black;
+    transform: scale(1.18);
+}
+
+#popup_bg {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:100%;
+
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+
+#popupMainDiv {
+    position: fixed;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 600px;
+    margin-top: -320px;
+    margin-left: -400px;
+
+    background-color: white;
+
+    border: 15px solid black;
+    border-radius: 8px;
+}
+
+
+#closePopUp {
+    position: absolute;
+    z-index: 5;
+    width: 25px;
+    height: 25px;
+    right: 5px;
+    top: 5px;
     text-align: center;
-    background-color: #004B23;
+
+    border-radius: 25px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+
+
+#closePopUp p {
+    margin-top: 5px;
+
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+
+#blackJackTitle {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 4px solid black;
+    padding-bottom: 6px;
+    text-align: center;
+    
+    font-size: 35px;
+    font-weight: bold;
+    /*text-decoration: underline;*/
+}
+
+
+
+#blackJackRules {
+    margin-top: 6px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    text-align: left;
+}
+
+
+
+#blackJackHeader {
+    padding-left: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    text-align: left;
+
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+
+
+body {
     position: relative;
     margin: 0;
     height: 100vh;
     padding-top: 100px;
+
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: #004B23;
 }
+
 
 
 body::after {
@@ -17,84 +138,12 @@ body::after {
     width: 100%;
     height: 100%;
     z-index: 1;
+
     background: rgba(0, 0, 0, 0.2);
+
     box-shadow: inset 30px 25px 75px #000000, inset -30px -25px 75px #000000
 }
 
-
-#popup_bg {
-    position: fixed;
-    z-index: 5;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height:100%;
-    background-color: rgba(0, 0, 0, 0.2);
-}
-
-
-#popupMainDiv {
-    position: fixed;
-    z-index: 5;
-    width: 800px;
-    height: 600px;
-    border: 15px solid black;
-    border-radius: 8px;
-    background-color: white;
-    margin-top: -320px;
-    margin-left: -400px;
-    left: 50%;
-    top: 50%;
-}
-
-
-#closePopUp {
-    position: absolute;
-    z-index: 5;
-    width: 25px;
-    height: 25px;
-    border-radius: 25px;
-    border: 2px solid black;
-    text-align: center;
-    right: 5px;
-    top: 5px;
-    cursor: pointer;
-}
-
-
-#closePopUp p {
-    margin-top: 5px;
-    font-family: sans-serif;
-    font-weight: bold;
-}
-
-
-#blackJackTitle {
-    margin-top: 18px;
-    margin-bottom: 10px;
-    text-align: center;
-    font-size: 35px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-
-#blackJackRules {
-    text-align: left;
-    margin-top: 6px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-#blackJackHeader {
-    text-align: left;
-    padding-left: 5px;
-    margin-top: 3px;
-    margin-bottom: 3px;
-    font-weight: bold;
-    font-size: 20px;
-    text-decoration: underline;
-}
 
 
 #dealer-cards img {
@@ -102,7 +151,7 @@ body::after {
     z-index: 2;
     height: 180px;
     width: 135px;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
     padding-top: 20px;
     padding-left: 4px;
     padding-right: 4px;
@@ -120,74 +169,133 @@ body::after {
 }
 
 h2 {
-    display: inline-block;
     position: relative;
+    display: inline-block;
+    z-index: 2;
+    margin: 10px;
+    width: 85px;
+    height: 28px;
     padding: 7px;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: black;
-    color: #FFFFF0;
-    z-index: 2;
-    margin: 10px;
-    border: groove;
-    border-color: black;
-    border-radius: 10px;
+    font-size: 23px;
+    font-weight: normal;
+
+    color: white;
+    background-color: #343434;
+
+    box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.9);
+    border-radius: 15px;
 }
 
+
+        
 .button-container {
     display: inline-flex; 
-    background-color: black;
-    justify-content:center;
-    gap: 5px;
-    border-radius: 25px;
     height: 55px;
     width: 450px;
-    padding-top: 10px
+    padding-top: 10px;
+    justify-content:center;
+    gap: 5px;
+
+    background-color: black;
+
+    border-radius: 15px;
 }
+
+
 
 #hit, #stay {
     position: relative;
     z-index: 2;
 }
 
+
+
 #hit {
     width: 85px;
     height: 45px;
+
     font-size: 20px;
+
     color: white;
     background-color: #FF0000;
+
     border:none;
     border-radius: 15px;
+
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
     box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.9);
 }
 
+
+
 #stay {
     width: 85px;
     height: 45px;
+
     font-size: 20px;
+
     color: white;
     background-color: #4CAF50;
+
     border:none;
     border-radius: 15px;
+
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
     box-shadow: 5px 4px 6px rgba(0, 0, 0, 0.9);
 }
+
+
 
 #hit:hover {
     background-color: #C00000;
     transform: scale(1.18);
 }
 
+
+
 #stay:hover {
     background-color: #3E8E3E;
     transform: scale(1.18);
 }
 
-/*#results {*/
-/*} */
+
+
+#losePopupBG {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:100%;
+
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+
+#losePopupMainDiv {
+    position: fixed;
+    display: none;
+    z-index: 5;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 600px;
+    margin-top: -320px;
+    margin-left: -400px;
+
+    background-color: white;
+
+    border: 15px solid black;
+    border-radius: 8px;
+}
+
+
 
 #results.has-text {
     display: inline-block;
@@ -197,9 +305,10 @@ h2 {
 
     font-family: "Roboto", sans-serif;
     font-size: 40px;
-    color: white;
 
+    color: white;
     background-color: black;
+
     border-color: black;
     border-style: solid;
     border-width: 5px;

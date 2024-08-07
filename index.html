@@ -15,6 +15,7 @@
 
 
     <body>
+    <button id="rulesButton" onclick="openPopup()"> Rules </button>
         <div id="popup_bg">
             <div id="popupMainDiv">
                 <p id="blackJackTitle"> BlackJack Rules </p>
@@ -45,10 +46,10 @@
                     & whatever sum they currently have is what they will <b>"STAND"</b>
                     with against the Dealer.
                 </p>
-                <div id="closePopUp">
+                <div id="closePopUp" title="Close menu" onclick="closePopup()">
                     <p> X </p>
                 </div>
-            </div>
+            </div> 
         </div>
 
         <h2>Dealer: <span id='dealer-sum'></span></h2>
@@ -57,13 +58,19 @@
                 <img id='hidden' src="./cards/BACK.png">
             </div>
 
-        <h2>You: <span id='your-sum'></span></h2>
+        <h2>Player: <span id='your-sum'></span></h2>
             <div id='your-cards'></div>
 
         <br>
         <button id='hit'>Hit</button>
         <button id='stay'>Stay</button>
         <br>
-        <p id='results'></p>
+
+        <!--<div id="losePopupBG">-->
+        <!--    <div id="losePopupMainDiv">-->
+                <p id='results'></p>
+        <!--    </div>-->
+        <!--</div>-->
+
     </body>
 </html>
