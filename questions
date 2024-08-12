@@ -5,13 +5,15 @@ each element styled in order of the flow of the page.
 
 Specific questions below --------
 
+---
+
 1.) Is my use of the z-index acceptable? I was originally confused due to my 
 poor understanding of pseudo elements (::before & ::after) & the z-index
 
-
+---
 
 2.) I have not yet developed or learned about a convention for the grouping or
-structruing of css properties. So for this project I decided to style each
+structruing of CSS properties. So for this project I decided to style each
 element in the given order to provide myself with some consitency.
 
 Positing
@@ -26,7 +28,7 @@ Effects
 .. Don't have a question about this, just looking for thoughts on how this would
 be precievied by an interviewer. 
 
-
+--
 
 3.) Based on my use of display properties, does it appear that I have an understanding
 of how and when to use these different properties?
@@ -34,7 +36,7 @@ of how and when to use these different properties?
 [Properties are still confusing to me. My use of them here was guided by 
 documentation and GPT explaining to me why things were behaving the way they were.]
 
-
+--
 
 4.) I have a decent understanding of the CSS box model, however I feel like my 
 use of the positioning properties is off. I don't really have a protocol in my 
@@ -42,7 +44,7 @@ mind on how to first approach an element that I want in a specific position. I
 just try things until somethings works. This feel like a bad way to approach..?
 
 Below is the main example of me "Making it work".. these are the sums that are to
-be rendered when the hand is over.
+be rendered when the hand is over. (This box will only show once the dealer has 21)
 
 
 #dealer-sum, #your-sum {
@@ -57,14 +59,14 @@ I could just be overthinking but my main issue is that things were not behaving
 for me in a predictable way.. This tells me that either I don't know my shit (true)
 or some other styling property was affecting this is a way I dont understand (probably also true)
 
-
+--
 
 5.) Other than these questons I'm looking for overall thoughts on my approach to CSS here
 I realize after this project that the actual design & asethtic of things is a 
 different issue all together. I really dont like the way the game looks but I'm not 
 creative/comfortable enough with my tools to have a clear vision on how I'd want 
 things to ultimately look. So instead of focusing on the asethtics of this game 
-I focused on my understanding of HOW to do things and visualizing how the element 
+I focused on my understanding of HOW to do things and visualizing how the elements
 im editing will change before seeing it with my eyes, in otherwords...
 Having a clear understanding of how to do what I want to do without having to 
 resort to trial and error.

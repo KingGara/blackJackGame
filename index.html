@@ -16,7 +16,9 @@
 
     <body>
 
-    <button id="rulesButton" onclick="openPopup()"> Rules </button>
+    <button id="rulesButton"> Rules </button>
+    <button id="addDeck"> +Deck </button>
+    <button id="nextHand"> Next Hand </button>
 
         <div id="popup_bg">
             <div id="popupMainDiv">
@@ -58,13 +60,27 @@
             <div id='dealer-cards'> <img id='hidden' src="./cards/BACK.png"> </div>
 
         <h2>Player: <span id='your-sum'></span></h2>
+
+        <div id="card-container">
             <div id='your-cards'></div>
+            <div id='your-cards2'></div>
+        </div>
 
         <br>
-        <button id='hit'>Hit</button>
-        <button id='stay'>Stay</button>
-        <br>
 
+        <div id="button-container">
+            <div id="first-handbutt">
+                <button id='hit'>Hit</button>
+                <button id='stay'>Stay</button>
+            </div>
+
+            <div id="second-handbutt">
+                <button id='hit'>Hit</button>
+                <button id='stay'>Stay</button>
+            </div>
+
+        </div>
+        <br>
         <!--<div id="losePopupBG">-->
         <!--    <div id="losePopupMainDiv">-->
                 <p id='results'></p>

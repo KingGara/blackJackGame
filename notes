@@ -24,3 +24,10 @@ JS - Todo
 
 [] Create individually animations to show each dealer card being dealt after player
 has stayed
+
+
+[] Set a counter to show how many decks we are working with
+
+[] split animation for when we are dealt two of the same card
+- card needs to split into two seperate hands each hand dealt another card
+complete with hit & stay options. 
