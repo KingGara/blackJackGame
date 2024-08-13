@@ -7,8 +7,10 @@ Specific questions below --------
 
 ---
 
-1.) Is my use of the z-index acceptable? I was originally confused due to my 
-poor understanding of pseudo elements (::before & ::after) & the z-index
+1.) the z-index was confusing me due and my use of it was not yeilding desired
+outcomes due to my poor understanding of pseudo elements (::before & ::after)
+& the z-index itself..Mostly cleared up just wanted you to pay attention to my
+use of the pseudo elements and the z-index  
 
 ---
 
