@@ -1,338 +1,302 @@
-// Variable Declarations
-let dealerSum = 0;
-let dealerAceCount = 0;
-let dealersCards = document.getElementById("dealer-cards");
+class BlackjackGame {
+    constructor() {
 
-let yourSum = 0;
-let yourAceCount = 0;
-
-let cardValues = []
-let cardName;
-let cardImg;
-let card;
-
-let hidden;
-let deck = [];
-
-let canHit = true; 
-
-let popUpDiv = document.getElementById("popup_bg");
-let closePopUpDiv = document.getElementById("losePopUp")
-
-// Disable 'Deal' button for now
-document.getElementById("nextHand").disabled = true;
-
-
-// Functions to run on load
-window.onload = function() {
-    buildDeck();
-    startGame();
-    //openPopup(); // Cache this so it only shows up the first time
-}
-
-
-
-function openPopup() {
-    popUpDiv.style.display = "block";
-}
-
-
-
-function closePopup() {
-    popUpDiv.style.display = "none";
-}
-
-
-
-//function openLosePopup() {
-//    closePopUpDiv.style.display = "inline-block";
-//    return document.getElementById("results").innerText = "BUSTED"
-//}
-
-
-// Builds deck from names of corresponding card values, extracts values from name 
-function buildDeck() {
-    let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-    let types = ["C", "D", "H", "S"];
-
-    for(let i = 0; i < types.length; i++) {
-        for(let j = 0; j < values.length; j++) {
-            deck.push(values[j] + "-" + types[i]); 
-        }
-    }
-    shuffleDeck(); // Shuffle deck after its built
-                                             console.log(`Deck: ${deck}`);
-}
-
-/* Fisher-Yates algorithm used to shuffle ordered deck takes a list of all elements
-in a sequence & continually determines the next element in the shuffled sequence by
-randomly drawing an element from the list until no elements remain. 
-*/
-function shuffleDeck() {
-     for(let i = 0; i < deck.length; i++) {
-
-        let j = Math.floor(Math.random() * deck.length);
-        let temp = deck[i]; // Store card at i
-        deck[i] = deck[j]; // replace card at i with card at j 
-        deck[j] = temp; // replace card at j with stored card i
-    }
-                                            console.log(`Deck: ${deck} `);
-}
-
-/*
-    Game starts here with two for loops. First loop is responsible for dealing 
-    players cards & second loop deals dealers cards. Both loops start by creating
-    a variable that will store a new "img" element. Then we set another variable 
-    (card) to equal a random card popped off the deck. We then take the newly
-    made "img element" (which at this point is just and empty img element) and
-    edit its .src to equal the file path ./cards/ + card + .png. This ultimately
-    allows us to set our cardImg varaible to the appropriate card we need.
-    We then select our element by id and append or newly set cardImg.
-
-    Note that the second loop does the exact same thing, only difference is the
-    pressence of the 'hidden' variable which represents the hidden dealer card.
-
-    Function ends with a check if the dealer is dealt blackjack immediately.
-    When this happens both scores are shown and a popup is shown. 'hit' & 'stay'
-    functionality are both disabled while the next hand button is enabled. 
-*/
-let dealerCard;
-function startGame() {
-    for(let i = 0; i < 2; i++) {
-        cardImg = document.createElement("img");
-        card = deck.pop();
-        cardImg.src = "./cards/" + card + ".png";
-
-        document.getElementById("your-cards").append(cardImg);
-
-        yourSum += getValue(card);
-        yourAceCount += checkAce(card);
-    }
-                                            console.log(`PlayerSum: ${yourSum}`);
-    for(let i = 0; i < 1; i++) {
-        cardImg = document.createElement("img");
-        dealerCard = deck.pop();
-        hidden = deck.pop() // Set dealers hidden card to pop'd element
-        cardImg.src = "./cards/" + dealerCard + ".png";
-
-        document.getElementById("dealer-cards").append(cardImg);
-
-        dealerSum += getValue(dealerCard) + getValue(hidden);
-        dealerAceCount += checkAce(dealerCard) + checkAce(hidden);
-    }
-                                            console.log(`DealerHidden: ${hidden}`);
-                                            console.log(`DealerSum: ${dealerSum}`);
-    if(dealerSum == 21) {
-        document.getElementById("hidden").src = "./cards/" + hidden + ".png";
-
-        document.getElementById("dealer-sum").innerText = dealerSum;
-        document.getElementById("your-sum").innerText = yourSum;
-        document.getElementById("results").innerText = "Dealer Wins by BlackJack!"
-        document.getElementById("results").classList.add("has-text");
-
-        document.getElementById("hit").disabled = true;
-        document.getElementById("stay").disabled = true;
+        this.deck = [];
+        this.hidden = null;
+        this.dealersUpCard = null;
+        this.dealersSum = 0;
+        this.dealersAceCount = 0;
+        this.playersSum = 0;
+        this.playersAceCount = 0;
+        this.cardValues = [];
+        this.canHit = true;
         
-        document.getElementById("nextHand").disabled = false;
-        document.getElementById("nextHand").classList.add("show");
-    }
-     if(checkPairs()) {
-        document.getElementById("card-container").classList.add("show");
-        document.getElementById("your-cards").classList.add("show");
-        document.getElementById("your-cards2").classList.add("show");
-        document.getElementById("button-container").classList.add("show");
-        document.getElementById("second-handbutt").style.display = "inline-block"
-                                            console.log('pair')
-        const lastCard = document.querySelector("#your-cards img:last-child");
-        cardImg = document.createElement("img");
-        cardImg.src = "./cards/" + card + ".png";
-        document.getElementById("your-cards2").append(cardImg);
-        lastCard.remove();
+// Data Selected queries
+        this.popUp = document.querySelector('[data-popup]');
+        this.closePop = document.querySelector('[data-close-rules]');
+        this.rulesButton = document.querySelector('[data-rules-button]');
+        this.adddeckButton = document.querySelector('[data-addDeck-button]');
+        this.nextHandButton = document.querySelector('[data-nextHand-button]');
+        this.stayButtons = document.querySelectorAll('[data-stay-button]');
+        this.hitButtons = document.querySelectorAll('[data-hit-button]');
+        this.playersCards = document.querySelectorAll('[data-players-cards]');
+        this.playersScore = document.querySelector('[data-players-sum]');
+        this.dealersCards = document.querySelector('[data-dealers-cards]');
+        this.dealersHiddenCard = document.querySelector('[data-dealers-hidden-card]');
+        this.dealersScore = document.querySelector('[data-dealers-sum]');
+        this.resultsPop = document.querySelector('[data-results]');
 
-        //document.getElementById("your-cards2").append(lastCard.cloneNode(true));
-    }
-}
-
-function checkPairs() {
-    const playerCards = document.getElementById("your-cards");
-                                            console.log(`PlayersCardsObj: ${playerCards}`);
-    cardImg = playerCards.getElementsByTagName("img");
-                                            console.log(`PlayersCardsImg: ${cardImg}`);
-    for(let img of cardImg) {
-        const cardSrc = img.src;
-                                            console.log(`CardSrc: ${cardSrc}`);
-        cardName = img.src.split("/").pop().split(".")[0];
-        const value = cardName.split("-")[0];
-        cardValues.push(value);
-    }
-                                            console.log(`Card Values: ${cardValues}`);
-    if(cardValues[0] == cardValues[1]) {
-        return true 
-    } else {
-        return false
-    }
-}
+// Initalize Game
+        this.gameInit();
+    };
 
 
-/*
-    When called adds another card to the players hand and appends that card img
-    to the 'your-cards' element using the same logic found in startGame().
-    
-    Function ends with a check to see if reduceAce() > 21 if it is then game is 
-    over and end state is reached.
-*/
-function hit() {
-    card = deck.pop();
-    cardImg = document.createElement("img");
-    cardImg.src = "./cards/" + card + ".png";
 
-    yourSum += getValue(card);
-    yourAceCount += checkAce(card);
+    gameInit() {
+        this.rulesButton.addEventListener('click', () => this.openPopup());
 
-    document.getElementById("your-cards").append(cardImg);
+        this.closePop.addEventListener('click', () => this.closePopup());
 
-                                            console.log(`PlayerSum: ${yourSum}`);
+        this.adddeckButton.addEventListener('click', () => this.buildDeck());
 
-    if(reduceAce(yourSum, yourAceCount) > 21) {
-        document.getElementById("results").innerText = "BUSTED!"
-        document.getElementById("results").classList.add('has-text');
-
-        document.getElementById("hit").disabled = true;
-        document.getElementById("stay").disabled = true;
-
-        document.getElementById("nextHand").disabled = false;
-        document.getElementById("nextHand").classList.add('show');
-    }
-}
-
-/*
-    TODO:
-    [] Figure out a setInterval to animate cards being dealt
-    
-
-    This function is called when the player is satisfied with their hand and 
-    wants to take their chances to 'stand' against the dealer. When called, a
-    while loop is initaited that will run until the dealers sum is no longer
-    less than 17. The same method as before is applied to retrieve a card from 
-    the deck and then appended to the already existing dealers-cards img element.
-
-    Once dealersSum >= 17 a serious of checks is called by results() 
-    to decided which end message to be displyed. Once this is done end state 
-    is reached & pop up should be visible.
-*/
+        this.nextHandButton.addEventListener('click', () => this.startGame());
+        this.nextHandButton.disabled = true;
 
 
-function stay() {
-    document.getElementById("hidden").src = "./cards/" + hidden + ".png";
-    document.getElementById("hit").disabled = true;
+        this.hitButtons.forEach((button, index) => {
+            button.addEventListener('click', () => this.hit(index));
+        });
 
-    let intervalDeal = setInterval(() => {
-        if (dealerSum < 17) {
-            cardImg = document.createElement("img");
-            card = deck.pop();
-            cardImg.src = "./cards/" + card + ".png";
+        this.stayButtons.forEach((button, index) => {
+            button.addEventListener('click', () => this.stay(index));
+        });
 
-            dealerSum += getValue(card);
-            dealerAceCount += checkAce(card);
+        this.buildDeck();
+        this.startGame();
+    };
 
-            document.getElementById("dealer-cards").append(cardImg);
 
-            dealerSum = reduceAce(dealerSum, dealerAceCount);
+
+    buildDeck() {
+        let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+        let types = ["C", "D", "H", "S"];
+
+        for (let i = 0; i < types.length; i++) {
+            for (let j = 0; j < values.length; j++) {
+                this.deck.push(values[j] + "-" + types[i]);
+            }
+        }
+        this.shuffleDeck(); // Shuffle deck after its built
+        console.log(`deck: ${this.deck}`);
+    };
+
+
+
+    shuffleDeck() {
+        for (let i = 0; i < this.deck.length; i++) {
+
+            let j = Math.floor(Math.random() * this.deck.length);
+            let temp = this.deck[i]; // Store card at i
+            this.deck[i] = this.deck[j]; // replace card at i with card at j 
+            this.deck[j] = temp; // replace card at j with stored card i
+        }
+        console.log(`this.deck: ${this.deck} `);
+    };
+
+
+
+    startGame() {
+        for (let i = 0; i < 2; i++) {
+            this.cardImg = document.createElement("img");
+            this.card = this.deck.pop();
+            this.cardImg.src = "./cards/" + this.card + ".png";
+
+            this.playersCards[0].append(this.cardImg);
+
+            this.playersSum += this.getValue(this.card);
+            this.playersAceCount += this.checkAce(this.card);
+        };
+
+
+
+        for (let i = 0; i < 1; i++) {
+            this.cardImg = document.createElement("img");
+            this.dealersUpCard = this.deck.pop();
+            this.hidden = this.deck.pop() // Set dealers hidden card to pop'd element
+            this.cardImg.src = "./cards/" + this.dealersUpCard + ".png";
+
+            this.dealersCards.append(this.cardImg);
+
+            this.dealersSum += this.getValue(this.dealersUpCard) + this.getValue(this.hidden);
+            this.dealersAceCount += this.checkAce(this.dealersUpCard) + this.checkAce(this.hidden);
+        };
+        console.log(`DealerHidden: ${this.hidden}`);
+        console.log(`DealerSum: ${this.dealersSum}`);
+
+        if (this.dealersSum == 21) {
+            this.dealersHiddenCard.src = "./cards/" + this.hidden + ".png";
+            this.dealersScore.innerText = this.dealersSum;
+            this.playersScore.innerText = this.playersSum;
+            this.resultsPop.innerText = "Dealer Wins by BlackJack!"
+            this.resultsPop.classList.add("has-text");
+
+            this.hitButtons.disabled = true;
+            this.stayButtons.disabled = true;
+            this.nextHandButton.disabled = false;
+
+            this.nextHandButton.classList.add('show');
+        };
+
+
+
+        if (this.checkPairs()) {
+
+            document.getElementsByClassName("js-sum-container")[0].classList.add("show");
+
+            document.getElementsByClassName("js-card-container")[0].classList.add("show");
+            this.playersCards[0].classList.add("show");
+
+            document.getElementsByClassName("js-button-container")[0].classList.add("show");
+            document.getElementsByClassName("js-second-handbutt")[0].style.display = "inline-block"
+
+            const lastCard = document.querySelector(".js-players-cards img:last-child");
+            this.cardImg = document.createElement("img");
+            this.cardImg.src = "./cards/" + this.card + ".png";
+            document.querySelector(".js-players-cards2").append(this.cardImg);
+            lastCard.remove();
+
+        };
+    };
+
+
+
+    checkPairs() {
+        this.cardImg = this.playersCards[0].getElementsByTagName("img");
+        for (let img of this.cardImg) {
+            //const cardSrc = img.src;
+            this.cardName = img.src.split("/").pop().split(".")[0];
+            const value = this.cardName.split("-")[0];
+            this.cardValues.push(value);
+        }
+        console.log(`Player Card Values: ${this.cardValues}`);
+        console.log(`PlayerSum: ${this.playersSum}`)
+
+        if (this.cardValues[0] == this.cardValues[1]) {
+            return true
         } else {
-            clearInterval(intervalDeal);
-            results()
+            return false
         }
-    }, 700);
-}
-
-
-
-function results() {
-    canHit = false;
-
-    let message = "";
-
-    if(yourSum > 21) {
-        message = "You Lose!";
-
-    } else if(dealerSum > 21) {
-        message = "You Win!";
-
-    } else if(yourSum == dealerSum) {
-        message = "Tie!";
-
-    } else if(yourSum > dealerSum) {
-        message = "You Win!";
-
-    } else if (yourSum < dealerSum) {
-        message = "You Lose!";
     }
 
-    document.getElementById("dealer-sum").innerText = dealerSum;
-    document.getElementById("your-sum").innerText = yourSum;
-
-    document.getElementById("nextHand").disabled = false;
-    document.getElementById("nextHand").classList.add('show');
-
-    const resultsElement = document.getElementById("results");
-    resultsElement.innerText = message;
-    resultsElement.classList.add('has-text');
-
-}
-
-                                            console.log(`DealerSum: ${dealerSum}`);
 
 
-/*
-    Method that allows us to extract an integer value from the card images.
-    does this by splitting the string in which the card is saved as and returning
-    the parseInt result of the [0] split.
+    hit(index) {
+        this.card = this.deck.pop();
+        this.cardImg = document.createElement("img");
+        this.cardImg.src = "./cards/" + this.card + ".png";
 
-    not that for the values of the face cards we have a check if(isNaN) we can
-    safely say that if it is not a number and the value == "A" then we return
-    11 for the Ace.. else{} we return 10 to account for all other face cards.
+        this.playersSum += this.getValue(this.card);
+        this.playersAceCount += this.checkAce(this.card);
 
-    method returns a parseInt of the value.
-*/
-function getValue(card) {
-    let data = card.split("-");
-    let value = data[0];
+        this.playersCards[index].append(this.cardImg);
 
-    if(isNaN(value)) {
-        if(value == "A") {
-            return 11;
+        console.log(`PlayerSum (Hand ${index + 1}): ${this.playersSum[index]}`);
+
+        if (this.reduceAce(this.playersSum, this.playersAceCount) > 21) {
+            this.resultsPop.innerText = "BUSTED!"
+            this.resultsPop.classList.add("has-text");
+
+            this.hitButtons[index].disabled = true;
+            this.stayButtons[index].disabled = true;
+
+        if(this.hitButtons.every(btn => btn.disabled)) {
+                this.nextHandButton.disabled = false;
+                this.nextHandButton.classList.add("show");
+            }
         }
-        return 10;
     }
-    return parseInt(value);
-}
 
-/*
-    Keeps track of total # of aces in hand        
-*/
-function checkAce(card) {
-    if(card == "A") {
-        return 1;
+
+
+    stay() {
+        this.dealersHiddenCard.src = "./cards/" + this.hidden + ".png";
+        this.hitButtons.disabled = true;
+        this.stayButtons.disabled = true;
+
+        let intervalDeal = setInterval(() => {
+            if (this.dealersSum < 17) {
+                this.cardImg = document.createElement("img");
+                this.card = this.deck.pop();
+                this.cardImg.src = "./cards/" + this.card + ".png";
+
+                this.dealersSum += this.getValue(this.card);
+                this.dealersAceCount += this.checkAce(this.card);
+
+                this.dealersCards.append(this.cardImg);
+
+                this.dealerSum = this.reduceAce(this.dealerSum, this.dealersAceCount);
+            } else {
+                clearInterval(intervalDeal);
+                this.results()
+            }
+        }, 700);
     }
-    return 0;
-}
 
-/*
-    Sets ace value to 1 if our sum > 21 and aceCount > 0
-*/
-function reduceAce(yourSum, yourAceCount) {
-    while(yourSum > 21 && yourAceCount > 0) {
-        yourSum -= 10;
-        yourAceCount -= 1;
+
+
+    results() {
+        this.canHit = false;
+
+        let message = "";
+
+        if (this.playersSum > 21) {
+            message = "You Lose!";
+
+        } else if (this.dealersSum > 21) {
+            message = "You Win!";
+
+        } else if (this.playersSum == this.dealersSum) {
+            message = "Tie!";
+
+        } else if (this.playersSum > this.dealersSum) {
+            message = "You Win!";
+
+        } else if (this.playersSum < this.dealersSum) {
+            message = "You Lose!";
+        }
+
+        this.dealersScore.innerText = this.dealersSum;
+        this.playersScore.innerText = this.playersSum;
+        this.nextHandButton.disabled = false;
+        this.nextHandButton.classList.add("show");
+        this.resultsPop.innerText = message;
+        this.resultsPop.classList.add("has-text");
     }
-    return yourSum;
-}
 
-// Even listeners
-document.getElementById("stay").addEventListener("click", stay);
-document.getElementById("hit").addEventListener("click", hit);
-document.getElementById("rulesButton").addEventListener("click", openPopup);
-document.getElementById("addDeck").addEventListener("click", buildDeck);
-document.getElementById("nextHand").addEventListener("click", buildDeck);
 
+
+    getValue(card) {
+        let data = card.split("-");
+        let value = data[0];
+
+        if (isNaN(value)) {
+            if (value == "A") {
+                return 11;
+            }
+            return 10;
+        }
+        return parseInt(value);
+    }
+
+
+
+    checkAce(card) {
+        if (card == "A") {
+            return 1;
+        }
+        return 0;
+    }
+
+
+
+    reduceAce(playerSum, playerAceCount) {
+        while (playerSum > 21 && playerAceCount > 0) {
+            playerSum -= 10;
+            playerAceCount -= 1;
+        }
+        return playerSum;
+    }
+
+
+    openPopup() {
+        this.popUp.style.display = "block";
+    };
+
+    closePopup() {
+        this.popUp.style.display = "none";
+    };
+};
+
+
+const game = new BlackjackGame();
 

@@ -16,15 +16,15 @@
 
     <body>
 
-    <button id="rulesButton"> Rules </button>
-    <button id="addDeck"> +Deck </button>
-    <button id="nextHand"> Next Hand </button>
+    <button data-rules-button class="js-rulesButton"> Rules </button>
+    <button data-addDeck-button class="js-addDeck"> +Deck </button>
+    <button data-nextHand-button class="js-nextHand"> Next Hand </button>
 
-        <div id="popup_bg">
-            <div id="popupMainDiv">
-                <p id="blackJackTitle"> BlackJack Rules </p>
-                <p id="blackJackHeader"> Objective </p>
-                <p id="blackJackRules">
+        <div data-popup class="js-popup_bg">
+            <div class="js-popupMainDiv">
+                <p class="js-blackJackTitle"> BlackJack Rules </p>
+                <p class="js-blackJackHeader"> Objective </p>
+                <p class="js-blackJackRules">
                     The objective of the game is to <b>beat the Dealer</b>. This can
                     be done by either <b>receiving cards that total a sum of 
                     21 (automatic win), OR by getting as close to 21 as possible, 
@@ -35,8 +35,8 @@
                     Player acts first & can either <b>"STAND"</b> or <b>"HIT"</b>.
                 </p>
                 <br>
-                <p id="blackJackHeader"> Actions </p>
-                <p id="blackJackRules">
+                <p class="js-blackJackHeader"> Actions </p>
+                <p class="js-blackJackRules">
                     If Player choses to <b>"HIT"</b> they will recieve another card.
                     <b>All numeric cards 2-10 equal the given value, all face cards
                     equal 10 & aces can either equal 1 or 11</b> according to what
@@ -50,42 +50,47 @@
                     & whatever sum they currently have is what they will <b>"STAND"</b>
                     with against the Dealer.
                 </p>
-                <div id="closePopUp" title="Close menu" onclick="closePopup()">
+                <div data-close-rules class="js-closePopUp" title="Close menu">
                     <p> X </p>
                 </div>
             </div> 
         </div>
 
-        <h2>Dealer: <span id='dealer-sum'></span></h2>
-            <div id='dealer-cards'> <img id='hidden' src="./cards/BACK.png"> </div>
+        <h2> Dealer <span data-dealers-sum class='js-dealer-sum sum'></span></h2>
+           <div data-dealers-cards class='js-dealer-cards'> <img data-dealers-hidden-card class='js-hidden' src="./cards/BACK.png"> </div>
 
-        <h2>Player: <span id='your-sum'></span></h2>
+        <!--<h2>Player: <span data-players-sum  class='js-players-sum'></span></h2>-->
 
-        <div id="card-container">
-            <div id='your-cards'></div>
-            <div id='your-cards2'></div>
+        <div class='player-header-container'>
+            <h2>Player</h2>
+            <div data-js-sum-container class='js-sum-container sum'>
+                <div data-players-sum class='js-players-sum'></div>
+                <div data-players-sum class='js-players-sum2'></div>
+                <div data-players-sum class='js-players-sum3'></div>
+            </div>
+        </div> 
+       
+
+        <div data-js-card-container class="js-card-container">
+            <div data-players-cards class="js-players-cards"></div>
+            <div data-players-cards class="js-players-cards2"></div>
         </div>
 
         <br>
 
-        <div id="button-container">
-            <div id="first-handbutt">
-                <button id='hit'>Hit</button>
-                <button id='stay'>Stay</button>
+        <div data-js-button-container class="js-button-container">
+            <div data-js-first-handbutt class="js-first-handbutt">
+                <button data-hit-button class='js-hit'>Hit</button>
+                <button data-stay-button class='js-stay'>Stay</button>
             </div>
 
-            <div id="second-handbutt">
-                <button id='hit'>Hit</button>
-                <button id='stay'>Stay</button>
+            <div data-js-second-handbutt class="js-second-handbutt">
+                <button data-hit-button class='js-hit'>Hit</button>
+                <button data-stay-button class='js-stay'>Stay</button>
             </div>
 
         </div>
         <br>
-        <!--<div id="losePopupBG">-->
-        <!--    <div id="losePopupMainDiv">-->
-                <p id='results'></p>
-        <!--    </div>-->
-        <!--</div>-->
-
+                <p data-results class='js-results'></p>
     </body>
 </html>

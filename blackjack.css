@@ -1,6 +1,5 @@
-#rulesButton {
+.js-rulesButton {
     position: absolute;
-    /*z-index: 2;*/
     top: 90px;
     left: 100px;
     width: 85px;
@@ -19,7 +18,7 @@
 
 
 
-#rulesButton:hover {
+.js-rulesButton:hover {
     background-color: white;
     color: black;
 
@@ -27,7 +26,7 @@
 }
 
 
-#addDeck {
+.js-addDeck {
     position: absolute;
     /*z-index: 2;*/
     top: 90px;
@@ -48,7 +47,7 @@
 
 
 
-#addDeck:hover {
+.js-addDeck:hover {
     background-color: white;
     color: black;
 
@@ -57,7 +56,7 @@
 
 
 
-#nextHand {
+.js-nextHand {
     position: absolute;
     /*z-index: 2;*/
     top: 90px;
@@ -78,7 +77,7 @@
 
 
 
-#nextHand.show:hover {
+.js-nextHand.show:hover {
     background-color: white;
     color: black;
 
@@ -87,7 +86,7 @@
 
 
 
-#popup_bg {
+.js-popup_bg {
     display: none;
     position: fixed;
     z-index: 1;
@@ -96,12 +95,13 @@
     width: 100%;
     height:100%;
 
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
+
 }
 
 
 
-#popupMainDiv {
+.js-popupMainDiv {
     position: fixed;
     z-index: 1;
     top: 50%;
@@ -118,7 +118,7 @@
 }
 
 
-#closePopUp {
+.js-closePopUp {
     position: absolute;
     z-index: 1;
     width: 25px;
@@ -134,15 +134,14 @@
 
 
 
-#closePopUp p {
+.js-closePopUp p {
     margin-top: 5px;
-
     font-family: sans-serif;
     font-weight: bold;
 }
 
 
-#blackJackTitle {
+.js-blackJackTitle {
     margin-top: 10px;
     margin-bottom: 10px;
     border-bottom: 4px solid black;
@@ -155,7 +154,7 @@
 
 
 
-#blackJackRules {
+.js-blackJackRules {
     margin-top: 6px;
     padding-left: 5px;
     padding-right: 5px;
@@ -165,7 +164,7 @@
 
 
 
-#blackJackHeader {
+.js-blackJackHeader {
     padding-left: 5px;
     margin-top: 3px;
     margin-bottom: 3px;
@@ -201,15 +200,13 @@ body::before {
 
     /*background: rgba(0, 0, 0, 0.5);*/
 
-    box-shadow: inset 30px 25px 75px #000000, inset -30px -25px 75px #000000
+    box-shadow: inset 30px 25px 75px .000000, inset -30px -25px 75px .000000
 }
 
 
-
-#dealer-cards img {
+.js-dealer-cards img {
     position: relative;
-    /*z-index: 2;*/
-    height: 190px;
+    height: 200px;
     width: 145px;
     padding-bottom: 60px;
     padding-top: 50px;
@@ -217,50 +214,51 @@ body::before {
     padding-right: 4px;
 }
 
-#card-container.show {
+.js-card-container.show {
     display: flex;
     justify-content: space-between;
     max-width: 1330px;
     margin: 0 auto;
 }
 
-#your-cards img,
-#your-cards2 img {
+.js-players-cards img,
+.js-players-cards2 img {
     position: relative;
-    height: 190px;
+    height: 200px;
     width: 145px;
     padding-bottom: 50px;
-    padding-top: 50px;
+    padding-top: 55px;
     padding-left: 5px;
     padding-right: 5px;
 }
 
 
-#your-cards img.show {
-    display: inline-block;
-    height: 190px;
-    width: 145px;
-    padding-bottom: 50px;
-    padding-top: 50px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
+/*.js-players-cards img.show,*/
+/*.js.players-cards2 img.show {*/
+/*    display: relative;*/
+    /*height: 200px;*/
+    /*width: 145px;*/
+    /*padding-bottom: 50px;*/
+    /*padding-top: 50px;*/
+    /*padding-left: 5px;*/
+    /*padding-right: 5px;*/
+/*}*/
 
-#your-cards2 img.show {
-    display: inline-block;
-    height: 290px;
-    width: 145px;
-    padding-bottom: 50px;
-    padding-top: 50px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
+/*.js-players-cards2 img.show {*/
+/*    display: inline-block;*/
+/*    height: 200px;*/
+/*    width: 145px;*/
+/*    padding-bottom: 50px;*/
+/*    padding-top: 50px;*/
+/*    padding-left: 5px;*/
+/*    padding-right: 5px;*/
+/*}*/
 
-#second-handbutt {
+.js-second-handbutt {
     display: none;
 }
 
-#button-container.show {
+.js-button-container.show {
     display: flex;
     justify-content: space-between;
     max-width: 1195px;
@@ -271,6 +269,7 @@ body::before {
 h2 {
     position: relative;
     display: inline-block;
+
     /*z-index: 2;*/
     margin: 5px;
     width: 80px;
@@ -279,7 +278,7 @@ h2 {
     padding-top: 5px;
     padding-bottom: 5px;
 
-    font-size: 23px;
+    font-size: 25px;
     font-weight: normal;
     color: white;
     background-color: #343434;
@@ -290,14 +289,14 @@ h2 {
 
 
 
-#hit, #stay {
+.js-hit, .js-stay {
     position: relative;
     display: inline;
 }
 
 
 
-#hit {
+.js-hit {
     width: 85px;
     height: 45px;
 
@@ -316,7 +315,7 @@ h2 {
 
 
 
-#stay {
+.js-stay {
     width: 85px;
     height: 45px;
 
@@ -335,31 +334,93 @@ h2 {
 
 
 
-#hit:hover {
+.js-hit:hover {
     background-color: #C00000;
     transform: scale(1.18);
 }
 
 
 
-#stay:hover {
-    background-color: #3E8E3E;
+.js-stay:hover {
+    background-color: .3E8E3E;
     transform: scale(1.18);
 }
 
 
 
-#dealer-sum, #your-sum {
+.js-dealer-sum {
     display: flex;
     justify-content: flex-end;
-    margin-top: -25px;
+    margin-top: -28px;
     margin-right: -46px;
-    
 }
 
 
 
-#losePopupBG {
+.player-header-container {
+    display: fixed;
+    justify-content: center;
+}
+
+
+.sum {
+    font-size: 25px;
+    font-weight: normal;
+    color: white;
+}
+
+
+/*.js-card-container.show {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    max-width: 1330px;*/
+/*    margin: 0 auto;*/
+/*}*/
+/**/
+/*.js-players-cards img,*/
+/*.js-players-cards2 img {*/
+/*    position: relative;*/
+/*    height: 200px;*/
+/*    width: 145px;*/
+/*    padding-bottom: 50px;*/
+/*    padding-top: 55px;*/
+/*    padding-left: 5px;*/
+/*    padding-right: 5px;*/
+/*}*/
+
+.js-sum-container {
+    position: fixed;
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 0;
+    background-color: black;
+}
+
+
+
+.js-sum-container.show {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1330px;
+    margin: 0 auto;
+}
+
+
+
+.js-players-sum {
+    display: block;
+    margin-top: 10px;
+    margin-left: 5px
+}
+
+.js-players-sum2 {
+    display: block;
+    margin-top: 10px;
+    margin-left: 5px
+}
+
+
+.js-losePopupBG {
     display: none;
     position: fixed;
     z-index: 1;
@@ -373,7 +434,7 @@ h2 {
 
 
 
-#losePopupMainDiv {
+.js-losePopupMainDiv {
     position: fixed;
     display: none;
     z-index: 1;
@@ -392,17 +453,14 @@ h2 {
 
 
 
-#results.has-text {
+.js-results.has-text {
     display: inline-block;
     position: fixed;
-    top: calc(50% - 98px);
+    top: 63%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -10%);
     padding: 10px;
     z-index: 3;
-
-    /*margin-top: 70px;*/
-    /*width: 250px;*/
 
     font-family: "Roboto", sans-serif;
     font-size: 70px;
