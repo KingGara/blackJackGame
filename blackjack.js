@@ -6,8 +6,8 @@ class BlackjackGame {
         this.dealersUpCard = null;
         this.dealersSum = 0;
         this.dealersAceCount = 0;
-        this.playersSum = 0;
-        this.playersAceCount = 0;
+        this.playersSum = [0]
+        this.playersAceCount = [0]
         this.cardValues = [];
         this.canHit = true;
         
@@ -93,9 +93,11 @@ class BlackjackGame {
 
             this.playersCards[0].append(this.cardImg);
 
-            this.playersSum += this.getValue(this.card);
-            this.playersAceCount += this.checkAce(this.card);
+            this.playersSum[0] += this.getValue(this.card);
+            this.playersAceCount[0] += this.checkAce(this.card);
         };
+
+        this.playersScore.innerText = this.playersSum;
 
 
 
@@ -110,8 +112,8 @@ class BlackjackGame {
             this.dealersSum += this.getValue(this.dealersUpCard) + this.getValue(this.hidden);
             this.dealersAceCount += this.checkAce(this.dealersUpCard) + this.checkAce(this.hidden);
         };
-        console.log(`DealerHidden: ${this.hidden}`);
-        console.log(`DealerSum: ${this.dealersSum}`);
+                                                    console.log(`DealerHidden: ${this.hidden}`);
+                                                    console.log(`DealerSum: ${this.dealersSum}`);
 
         if (this.dealersSum == 21) {
             this.dealersHiddenCard.src = "./cards/" + this.hidden + ".png";
@@ -130,6 +132,8 @@ class BlackjackGame {
 
 
         if (this.checkPairs()) {
+            this.playersSum.push(0);
+            this.playersAceCount.push(0);
 
             document.getElementsByClassName("js-sum-container")[0].classList.add("show");
 
@@ -158,8 +162,8 @@ class BlackjackGame {
             const value = this.cardName.split("-")[0];
             this.cardValues.push(value);
         }
-        console.log(`Player Card Values: ${this.cardValues}`);
-        console.log(`PlayerSum: ${this.playersSum}`)
+                                                console.log(`Player Card Values: ${this.cardValues}`);
+                                                console.log(`PlayerSum (Hand 1): ${this.playersSum[0]}`)
 
         if (this.cardValues[0] == this.cardValues[1]) {
             return true
@@ -170,40 +174,34 @@ class BlackjackGame {
 
 
 
-    hit(index) {
+    hit(index = 0) {
         this.card = this.deck.pop();
         this.cardImg = document.createElement("img");
         this.cardImg.src = "./cards/" + this.card + ".png";
 
-        this.playersSum += this.getValue(this.card);
-        this.playersAceCount += this.checkAce(this.card);
-
+        this.playersSum[index] += this.getValue(this.card);
+        this.playersAceCount[index] += this.checkAce(this.card);
+        this.playersScore.innerText = this.playersSum
+            
         this.playersCards[index].append(this.cardImg);
 
-        console.log(`PlayerSum (Hand ${index + 1}): ${this.playersSum[index]}`);
 
-        if (this.reduceAce(this.playersSum, this.playersAceCount) > 21) {
+        if (this.reduceAce(this.playersSum[index], this.playersAceCount[index]) > 21) {
             this.resultsPop.innerText = "BUSTED!"
             this.resultsPop.classList.add("has-text");
+
+            this.playersScore.innerText = this.playersSum;
+            this.dealersScore.innerText = this.dealersSum;
 
             this.hitButtons[index].disabled = true;
             this.stayButtons[index].disabled = true;
 
-        if(this.hitButtons.every(btn => btn.disabled)) {
-                this.nextHandButton.disabled = false;
-                this.nextHandButton.classList.add("show");
-            }
-        }
-    }
+            this.dealersHiddenCard.src = "./cards/" + this.hidden + ".png";
+            this.hitButtons.disabled = true;
+            this.stayButtons.disabled = true;
 
+            let intervalDeal = setInterval(() => {
 
-
-    stay() {
-        this.dealersHiddenCard.src = "./cards/" + this.hidden + ".png";
-        this.hitButtons.disabled = true;
-        this.stayButtons.disabled = true;
-
-        let intervalDeal = setInterval(() => {
             if (this.dealersSum < 17) {
                 this.cardImg = document.createElement("img");
                 this.card = this.deck.pop();
@@ -215,6 +213,43 @@ class BlackjackGame {
                 this.dealersCards.append(this.cardImg);
 
                 this.dealerSum = this.reduceAce(this.dealerSum, this.dealersAceCount);
+                this.dealersScore.innerText = this.dealersSum;
+            } else {
+                clearInterval(intervalDeal);
+            }
+        }, 900);
+            const hitButtonsArray = Array.from(this.hitButtons);
+
+        if(hitButtonsArray.every(btn => btn.disabled)) {
+                this.nextHandButton.disabled = false;
+                this.nextHandButton.classList.add("show");
+            }
+        }
+                                                //console.log(`PlayerSum: ${this.playersSum}`)
+        console.log(`PlayerSum (Hand ${index + 1}): ${this.playersSum[index]}`);
+    }
+
+
+
+    stay(index = 0) {
+        this.dealersHiddenCard.src = "./cards/" + this.hidden + ".png";
+        this.dealersScore.innerText = this.dealersSum;
+        this.hitButtons[index].disabled = true;
+        this.stayButtons[index].disabled = true
+
+        let intervalDeal = setInterval(() => {
+            if (this.dealersSum < 17) {
+                this.cardImg = document.createElement("img");
+                this.card = this.deck.pop();
+                this.cardImg.src = "./cards/" + this.card + ".png";
+
+                this.dealersSum += this.getValue(this.card);
+                this.dealersAceCount += this.checkAce(this.card);
+                this.dealerSum = this.reduceAce(this.dealerSum, this.dealersAceCount);
+                this.dealersScore.innerText = this.dealersSum;
+
+                this.dealersCards.append(this.cardImg);
+
             } else {
                 clearInterval(intervalDeal);
                 this.results()
